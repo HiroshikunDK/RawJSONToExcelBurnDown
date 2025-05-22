@@ -41,19 +41,28 @@ public class JsonReader {
     // Function to write the extracted data to a CSV file
     public static void saveJsonToCsv(List<JsonNode> jsonNodeList, String filePath) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
-            // Writing the CSV header (the column names)
-            String[] header = {"CardName", "TimeSpent", "StoryPoints", "Sprint"};
+            // Define the CSV header
+            String[] header = {
+                    "CardName", "Sprint", "StoryPoints", "LavetDen",
+                    "ReviewetAf", "GodkendtDen", "TimeSpent"
+            };
             writer.writeNext(header);
 
-            // Writing the CSV rows
+            // Iterate through each JSON object
             for (JsonNode node : jsonNodeList) {
                 String cardName = node.has("CardName") ? node.get("CardName").asText() : "";
-                String timeSpent = node.has("TimeSpent") ? node.get("TimeSpent").asText() : "";
-                String storyPoints = node.has("StoryPoints") ? node.get("StoryPoints").asText() : "";
                 String sprint = node.has("Sprint") ? node.get("Sprint").asText() : "";
+                String storyPoints = node.has("StoryPoints") ? node.get("StoryPoints").asText() : "";
+                String lavetDen = node.has("LavetDen") ? node.get("LavetDen").asText() : "";
+                String reviewetAf = node.has("ReviewetAf") ? node.get("ReviewetAf").asText() : "";
+                String godkendtDen = node.has("GodkendtDen") ? node.get("GodkendtDen").asText() : "";
+                String timeSpent = node.has("TimeSpent") ? node.get("TimeSpent").asText() : "";
 
-                // Create a row for the CSV file
-                String[] row = {cardName, timeSpent, storyPoints, sprint};
+                // Create a row for the CSV
+                String[] row = {
+                        cardName, sprint, storyPoints, lavetDen,
+                        reviewetAf, godkendtDen, timeSpent
+                };
                 writer.writeNext(row);
             }
 
@@ -146,7 +155,7 @@ public class JsonReader {
     }
 
     public static void main(String[] args) {
-        String jsonFilePath = "C:\\Users\\thoma\\Downloads\\yYdzS9Up - your-green-car.json";
+        String jsonFilePath = "C:\\Users\\thoma\\Downloads\\Sf2emTRf - sw-sep4-grp2-machinelearning.json";
         String[] descArray = extractDescFromJson(jsonFilePath);
         ArrayList<String> jsonArray =new ArrayList<>();
 
